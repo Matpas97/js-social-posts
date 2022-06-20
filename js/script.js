@@ -29,24 +29,86 @@ let socialPosts = [
 
     {
         idpost: 1,
-        name: 'Phil Mangione',
-        image: 'img1.jpg',
+        name: 'Franco Esposito',
+        imageProfile: 'https://unsplash.it/600/300?image=171',
         date: '06/25/2021',
         text:'Placeat libero ipsa nobis ipsum quibusdam qua harum ut.Distinctio minima iust.Ad ad maiores et sint voluptate reusandae architetcto.Et nihli uallam aut alias.',
-        image:'img1.1.jpg',
-        like: 80,
+        image:'https://i.picsum.photos/id/100/600/300.jpg?hmac=p9e3SNrtRq-rxECA36kiO8zTjqYlRLytPHZIJWn8YGs',
+        like: 999,
     },
 
     {
         idpost: 2,
-        name:'Sofia Perlari',
-        image: 'img2.jpg',
-        date:'09/03/2021',
+        name:'Sofia rossi',
+        imageProfile: 'https://unsplash.it/600/300?image=171',
+        date:'11/03/2021',
         text:'Placeat libero ipsa nobis ipsum quibusdam qua harum ut.Distinctio minima iust.Ad ad maiores et sint voluptate reusandae architetcto.Et nihli uallam aut alias.',
-        image: 'img1.2.jpg',
-        like: 120,
+        image: 'https://i.picsum.photos/id/100/600/300.jpg?hmac=p9e3SNrtRq-rxECA36kiO8zTjqYlRLytPHZIJWn8YGs',
+        like: 150,
+    },
+
+    {
+        idpost: 3,
+        name:'Luca Pallo',
+        imageProfile: 'https://unsplash.it/600/300?image=171',
+        date:'13/03/2021',
+        text:'Placeat libero ipsa nobis ipsum quibusdam qua harum ut.Distinctio minima iust.Ad ad maiores et sint voluptate reusandae architetcto.Et nihli uallam aut alias.',
+        image: 'https://i.picsum.photos/id/100/600/300.jpg?hmac=p9e3SNrtRq-rxECA36kiO8zTjqYlRLytPHZIJWn8YGs',
+        like: 220,
+
+    },
+
+    {
+        idpost: 4,
+        name:'Pico Salo',
+        imageProfile: 'https://unsplash.it/600/300?image=171',
+        date:'09/06/2021',
+        text:'Placeat libero ipsa nobis ipsum quibusdam qua harum ut.Distinctio minima iust.Ad ad maiores et sint voluptate reusandae architetcto.Et nihli uallam aut alias.',
+        image: 'https://i.picsum.photos/id/100/600/300.jpg?hmac=p9e3SNrtRq-rxECA36kiO8zTjqYlRLytPHZIJWn8YGs',
+        like: 300,
+    },
+
+    {
+        idpost: 5,
+        name:'Pacco Tasso',
+        imageProfile: 'https://unsplash.it/600/300?image=171',
+        date:'10/05/2021',
+        text:'Placeat libero ipsa nobis ipsum quibusdam qua harum ut.Distinctio minima iust.Ad ad maiores et sint voluptate reusandae architetcto.Et nihli uallam aut alias.',
+        image: null,
+        like: 1000,
     }
 ];
+// Invoco la funzione 
+ function drawAllPosts(socialPosts)
+
+// Event Listeners
+
+// Seleziono gli elementi del DOM con le seguenti classi
+let allLikeBtn = document.querySelectorAll('.js-like-button');
+const allLikeCounter = document.querySelectorAll('.js-likes-counter');
+
+for(let i = 0; i < allLikeBtn.length; i++);
+ const thisFavouriteBtn = allLikeBtn[i];
+ thisFavouriteBtn.addEventListener('click', function(event) {
+    // Evito il comportamento di default del browser
+    event.preventDefault();
+
+    //Incremento il like solo se l' elemento su cui ho cliccato non ha gia classe clicked
+    if(!this.classList.contains('clicked')) {
+        //Aggiungo all' elemento cliccato la classe 'clicked'
+        this.classList.add('clicked');
+        //Prendo l' elemento html di testo che ha il numero relativo a questo btn
+        const relatedNumberText= allLikeCounter[i];
+        // Prendo il numero dentro relateNumberText
+        let relatedNumber = parseInt(relatedNumberText.innerHTML);
+        console.log(relatedNumber);
+        // Incremento di 1
+        relatedNumber++;
+        // Scrivo il numero incrementato dentro relateNumberText
+        relatedNumberText.innerHTML = relatedNumber;
+    }
+ }); 
+
 
 //MILESTONE 2
 // Per ogni elemento dell' array socialPost popolo il tamplate e stampo in pagina
@@ -54,23 +116,25 @@ const post = document.querySelector('.post');
 for(let i = 0; i < socialPosts.length; i++) {
     const thisSocialPost = socialPosts[i];
     console.log(thisSocialPost);
+ // Destrutturazione
+ const {name,imageProfile,date,text,image,like} = thisSocialPost;   
     
     const newPostTemplate = `
      <div class="post">
     <div class="post__header">
         <div class="post-meta">                    
             <div class="post-meta__icon">
-                <img class="profile-pic" src="img/" alt="${thisSocialPost.name}">                    
+                <img class="profile-pic" src="img/${imageProfile}" alt="${name}">                    
             </div>
             <div class="post-meta__data">
-                <div class="post-meta__author">${thisSocialPost.name}</div>
-                <div class="post-meta__time">${thisSocialPost.date}</div>
+                <div class="post-meta__author">${name}</div>
+                <div class="post-meta__time">${date}</div>
             </div>                    
         </div>
     </div>
-    <div class="post__text">${thisSocialPost.text}</div>
+    <div class="post__text">${text}</div>
     <div class="post__image">
-        <img src="img/${thisSocialPost.image}" alt="${thisSocialPost.name}">
+        ${image === null ? `<span>no picture</span>` : `<img src="${image}" alt="${name}">`}
     </div>
     <div class="post__footer">
         <div class="likes js-likes">
@@ -81,12 +145,12 @@ for(let i = 0; i < socialPosts.length; i++) {
                 </a>
             </div>
             <div class="likes__counter">
-                Piace a <b id="like-counter-1" class="js-likes-counter">${thisSocialPost.like}</b> persone
+                Piace a <b id="like-counter-1" class="js-likes-counter">${like}</b> persone
             </div>
         </div> 
     </div>            
 </div>
 `;
-
+// Concateno i post 
 post.innerHTML =+ newPostTemplate;
 }
