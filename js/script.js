@@ -30,27 +30,27 @@ let socialPosts = [
     {
         idpost: 1,
         name: 'Phil Mangione',
-        image: 'unsplash.it/300/300?image=15',
+        image: 'img1.jpg',
         date: '06/25/2021',
         text:'Placeat libero ipsa nobis ipsum quibusdam qua harum ut.Distinctio minima iust.Ad ad maiores et sint voluptate reusandae architetcto.Et nihli uallam aut alias.',
-        image:'unsplash.it/300/300?image=15',
+        image:'img1.1.jpg',
         like: 80,
     },
 
     {
         idpost: 2,
         name:'Sofia Perlari',
-        image: 'unsplash.it/300/300?image=15',
+        image: 'img2.jpg',
         date:'09/03/2021',
         text:'Placeat libero ipsa nobis ipsum quibusdam qua harum ut.Distinctio minima iust.Ad ad maiores et sint voluptate reusandae architetcto.Et nihli uallam aut alias.',
-        image: 'unsplash.it/300/300?image=15',
+        image: 'img1.2.jpg',
         like: 120,
     }
 ];
 
 //MILESTONE 2
 // Per ogni elemento dell' array socialPost popolo il tamplate e stampo in pagina
-
+const post = document.querySelector('.post');
 for(let i = 0; i < socialPosts.length; i++) {
     const thisSocialPost = socialPosts[i];
     console.log(thisSocialPost);
@@ -60,17 +60,17 @@ for(let i = 0; i < socialPosts.length; i++) {
     <div class="post__header">
         <div class="post-meta">                    
             <div class="post-meta__icon">
-                <img class="profile-pic" src="https://unsplash.it/300/300?image=15" alt="Phil Mangione">                    
+                <img class="profile-pic" src="img/" alt="${thisSocialPost.name}">                    
             </div>
             <div class="post-meta__data">
-                <div class="post-meta__author">Phil Mangione</div>
-                <div class="post-meta__time">4 mesi fa</div>
+                <div class="post-meta__author">${thisSocialPost.name}</div>
+                <div class="post-meta__time">${thisSocialPost.date}</div>
             </div>                    
         </div>
     </div>
-    <div class="post__text">Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.</div>
+    <div class="post__text">${thisSocialPost.text}</div>
     <div class="post__image">
-        <img src="https://unsplash.it/600/300?image=171" alt="">
+        <img src="img/${thisSocialPost.image}" alt="${thisSocialPost.name}">
     </div>
     <div class="post__footer">
         <div class="likes js-likes">
@@ -81,11 +81,12 @@ for(let i = 0; i < socialPosts.length; i++) {
                 </a>
             </div>
             <div class="likes__counter">
-                Piace a <b id="like-counter-1" class="js-likes-counter">80</b> persone
+                Piace a <b id="like-counter-1" class="js-likes-counter">${thisSocialPost.like}</b> persone
             </div>
         </div> 
     </div>            
 </div>
 `;
-    
+
+post.innerHTML =+ newPostTemplate;
 }
